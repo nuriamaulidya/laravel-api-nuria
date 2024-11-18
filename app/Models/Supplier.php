@@ -18,5 +18,4 @@ class Supplier extends Model
         return $this->belongsTo(Supplier::class);
     }
 
-    
 }

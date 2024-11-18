@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Validator as ValidationValidator;
 
 class ProductController extends Controller
 {
@@ -18,7 +19,7 @@ class ProductController extends Controller
 
         return response()->json(['data' => $data], 200);
     }
-    //
+
     /**
      * Show the form for creating a new resource.
      */
@@ -54,11 +55,11 @@ class ProductController extends Controller
     public function show($id)
     {
         try {
-            $data = Product::find($id);
+            $data = Product::findOrFail($id);
 
             return response()->json(['data' => $data], 200);
         } catch (\Throwable $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            return response()->json(['message' => $e->getMessage()], 404);
         }
     }
 
@@ -68,11 +69,11 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         try {
-            $data = Product::find($id);
+            $data = Product::findOrFail($id);
 
             return response()->json(['data' => $data], 200);
         } catch (\Throwable $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            return response()->json(['message' => $e->getMessage()], 404);
         }
     }
 
@@ -89,12 +90,12 @@ class ProductController extends Controller
         }
 
         try {
-            $data = Product::find($id);
+            $data = Product::findOrFail($id);
             $data->update($request->all());
 
-            return response()->json(['message' => 'Data berhasil diupdate', 'data' => $data]);
+            return response()->json(['message' => 'Data berhasil diupdate', 'data' => $data], 200);
         } catch (\Throwable $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            return response()->json(['message' => $e->getMessage()], 404);
         }
     }
 
@@ -104,12 +105,12 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         try {
-            $data = Product::find($id);
+            $data = Product::findOrFail($id);
             $data->delete();
 
             return response()->json(['message' => 'Data berhasil dihapus'], 200);
         } catch (\Throwable $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            return response()->json(['message' => $e->getMessage()], 404);
         }
     }
 }
