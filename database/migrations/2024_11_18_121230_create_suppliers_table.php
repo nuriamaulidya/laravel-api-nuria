@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('product_id');
-            $table->integer('contact');
+            $table->date('date'); 
             $table->timestamps();
         });
     }

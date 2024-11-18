@@ -10,7 +10,7 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','product_id','contact',];
+    protected $fillable = ['name','product_id','date',];
 
     // Relasi Many-to-One dengan model Supplier
     public function supplier()
@@ -18,46 +18,5 @@ class Supplier extends Model
         return $this->belongsTo(Supplier::class);
     }
 
-    /**
-    * Aturan validasi untuk model ini.
-    *
-    * @return array
-    */
-   public static function rules($process)
-   {
-       if ($process == 'insert') {
-           return [
-               'name' => 'required|string|max:225',
-               'price' => 'required|integer',
-           ];
-       } elseif ($process == 'update') {
-           return [
-               'name' => 'required|string|max:225',
-               'price' => 'required|integer',
-           ];
-       }
-   }
-
-   /**
-    * Mendaftarkan aturan validasi kustom.
-    *
-    * @param  \Illuminate\Validation\Validator  $validator
-    * @return void
-    */
-   public static function customValidation(Validator $validator)
-   {
-       $customAttributes = [
-           'name' => 'Nama',
-           'price' => 'Harga',
-       ];
-
-       $validator->addReplacer('required', function ($message, $attribute, $rule, $parameters) use ($customAttributes) {
-           return str_replace(':attribute', $customAttributes[$attribute], ':attribute harus diisi.');
-       });
-
-       $validator->addReplacer('price', function ($message, $attribute, $rule, $parameters) use ($customAttributes) {
-           return str_replace(':attribute', $customAttributes[$attribute], ':attribute harus berupa angka.');
-       });
-   }
-
+    
 }

@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\SupplierController;
 
 Route::get('/', function () {
     return view('welcome'); // Atau halaman utama aplikasi Anda
 });
-Route::get('/books', [\App\Http\Controllers\Api\BookController::class, 'index']);
+
+Route::get('/suppliers', [SupplierController::class, 'index']);

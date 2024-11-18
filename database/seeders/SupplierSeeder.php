@@ -2,27 +2,33 @@
 
 namespace Database\Seeders;
 
+//use App\Models\Book;
+//use App\Models\Author;
 use App\Models\Product;
 use App\Models\Supplier;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SupplierSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
         $products = Product::all();
 
-        $categorys = ['Boy', 'Girl', 'Children', 'GrandPa', 'GrandMa'];
+        // Memastikan setiap supplier terhubung dengan product yang ada
+        $productIds = range(1, 5); // Karena ada 5 product yang dibuat di ProductSeeder
+        $currentProductIndex = 0;
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i=1; $i <= 10; $i++) { 
             Supplier::create([
-                'name' => 'Product Title '.$i,
-                'product_id' => $products->random()->id, // Menghubungkan customer dengan produk secara acak
-                'contact' => fake()->numerify('08##########'), // Generate nomor HP dengan format yang valid
-                'category' => $categorys[array_rand($categorys)], // Mengambil kategori secara acak
+                'name' => 'Supplier '. $i,
+                'product_id' => $productIds[$currentProductIndex % 5], // Distribusi merata supplier ke product
+                'date' => now(), // Menambahkan tanggal saat ini
             ]);
+            $currentProductIndex++;
         }
     }
-
 }

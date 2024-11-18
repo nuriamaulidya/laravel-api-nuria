@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\AuthorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 Route::prefix('v1')->group(function () {
 
-    Route::resource('author', AuthorController::class);
+    Route::resource('product', ProductController::class);
 
     Route::get('/test', function () {
         return view('welcome');
