@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Dotenv\Validator;
+use Illuminate\Validation\Validator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -47,7 +47,7 @@ class Product extends Model
      * @param  \Illuminate\Validation\Validator  $validator
      * @return void
      */
-    public static function customValidation(Validator $validator)
+    public static function customValidation($validator)
     {
         $customAttributes = [
             'name' => 'Nama',
